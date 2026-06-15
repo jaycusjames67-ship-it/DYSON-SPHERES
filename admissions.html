@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Namungoona High School Admissions</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    background: #f5f8ff;
+    color: #222;
+}
+nav {
+    background: linear-gradient(90deg,#001f54,#0057D9,#00A86B);
+    padding: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+nav a:hover {
+    color: yellow;
+}
+.hero {
+    background: linear-gradient(rgba(0,31,84,.8), rgba(0,87,217,.7)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1200&q=80');
+    background-size: cover;
+    background-position: center;
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+}
+.hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+.main-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+}
+@media(max-width: 900px) {
+    .main-container { grid-template-columns: 1fr; }
+}
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    border: 1px solid #eef2f6;
+}
+.card h2 {
+    margin-bottom: 20px;
+    color: #001f54;
+    font-size: 1.5rem;
+    border-bottom: 3px solid #0057D9;
+    padding-bottom: 8px;
+    display: inline-block;
+}
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    background: #eef2f6;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.tab-btn.active {
+    background: #0057D9;
+    color: white;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #444;
+}
+input, select {
+    padding: 12px;
+    border: 2px solid #eef2f6;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: 0.3s;
+}
+input:focus, select:focus {
+    border-color: #0057D9;
+}
+button.submit-btn {
+    padding: 14px;
+    background: #00A86B;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+button.submit-btn:hover { background: #008754; }
+.table-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.view-toggle-buttons {
+    display: flex;
+    gap: 10px;
+}
+.view-btn {
+    padding: 8px 16px;
+    background: #eef2f6;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.view-btn.active {
+    background: #001f54;
+    color: white;
+}
+.table-wrapper {
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    text-align: left;
+}
+th {
+    background: #f8fafc;
+    padding: 12px;
+    font-weight: 600;
+    border-bottom: 2px solid #e2e8f0;
+}
+td {
+    padding: 12px;
+    border-bottom: 1px solid #edf2f7;
+}
+footer {
+    background: #001f54;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    margin-top: 60px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="admissions.html" style="color:yellow;">Admissions</a>
+    <a href="portals.html">Portals</a>
+    <a href="constitution.html">Constitution</a>
+    <a href="articles.html">Articles</a>
+    <a href="events.html">Events</a>
+    <a href="contact.html">Contact</a>
+</nav>
+
+<section class="hero">
+    <h1>Admissions & Recruitment Portal</h1>
+    <p>Submit your application to join the Namungoona High School family</p>
+</section>
+
+<div class="main-container">
+    <div class="card">
+        <h2>Application Form</h2>
+        <div class="tab-buttons">
+            <button class="tab-btn active" id="studentTab" onclick="switchFormType('student')">Student Admission</button>
+            <button class="tab-btn" id="teacherTab" onclick="switchFormType('teacher')">Teacher Vacancy</button>
+        </div>
+
+        <form id="admissionForm" onsubmit="handleApplicationSubmit(event)">
+            <div id="dynamicFormFields">
+                </div>
+            <button type="submit" class="submit-btn">Submit Application</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <div class="table-actions">
+            <h2>Temporary Application logs</h2>
+            <div class="view-toggle-buttons">
+                <button class="view-btn active" id="viewStudBtn" onclick="loadApplicationsTable('student')">Students</button>
+                <button class="view-btn" id="viewTeachBtn" onclick="loadApplicationsTable('teacher')">Teachers</button>
+            </div>
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead id="tableHead"></thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>Namungoona High School | P.O. Box 26935, Kampala, Uganda</p>
+    <p style="font-size:0.8rem; margin-top:10px; color:#a0aec0;">© 2026 Namungoona High School | Strive To Excel</p>
+</footer>
+
+<script>
+let activeFormType = "student";
+
+function switchFormType(type) {
+    activeFormType = type;
+    document.getElementById("studentTab").classList.toggle("active", type === "student");
+    document.getElementById("teacherTab").classList.toggle("active", type === "teacher");
+    
+    const container = document.getElementById("dynamicFormFields");
+    if(type === "student") {
+        container.innerHTML = `
+            <div class="form-group"><label>Student Full Name</label><input type="text" id="studName" required></div>
+            <div class="form-group"><label>Parent/Guardian Name</label><input type="text" id="studParent" required></div>
+            <div class="form-group"><label>Contact Email</label><input type="email" id="studEmail" required></div>
+            <div class="form-group"><label>Contact Mobile Telephone</label><input type="text" id="studPhone" placeholder="e.g. 0788772660" required></div>
+            <div class="form-group">
+                <label>Target Academic Class</label>
+                <select id="studClass">
+                    <option value="S.1">Senior 1 (S.1)</option><option value="S.2">Senior 2 (S.2)</option>
+                    <option value="S.3">Senior 3 (S.3)</option><option value="S.4">Senior 4 (S.4)</option>
+                    <option value="S.5">Senior 5 (S.5)</option><option value="S.6">Senior 6 (S.6)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Stream Curriculum Group</label>
+                <select id="studStream">
+                    <option value="O-Level">O-Level Core</option>
+                    <option value="Sciences">A-Level Sciences Combination</option>
+                    <option value="Arts">A-Level Arts Combination</option>
+                </select>
+            </div>`;
+    } else {
+        container.innerHTML = `
+            <div class="form-group"><label>Teacher Full Name</label><input type="text" id="teachName" required></div>
+            <div class="form-group"><label>Email Address</label><input type="email" id="teachEmail" required></div>
+            <div class="form-group"><label>Mobile Phone</label><input type="text" id="teachPhone" required></div>
+            <div class="form-group"><label>Primary Department Subject</label><input type="text" id="teachSubject" placeholder="e.g. Mathematics" required></div>
+            <div class="form-group"><label>Highest Qualification Level</label><input type="text" id="teachQual" placeholder="e.g. Bachelor of Education" required></div>
+            <div class="form-group"><label>Years of Academic Experience</label><input type="number" id="teachExp" min="0" required></div>`;
+    }
+}
+
+function handleApplicationSubmit(e) {
+    e.preventDefault();
+    if(activeFormType === "student") {
+        let apps = JSON.parse(localStorage.getItem("student_applications")) || [];
+        apps.push({
+            student: document.getElementById("studName").value,
+            parent: document.getElementById("studParent").value,
+            email: document.getElementById("studEmail").value,
+            phone: document.getElementById("studPhone").value,
+            className: document.getElementById("studClass").value,
+            stream: document.getElementById("studStream").value
+        });
+        localStorage.setItem("student_applications", JSON.stringify(apps));
+        loadApplicationsTable('student');
+    } else {
+        let apps = JSON.parse(localStorage.getItem("teacher_applications")) || [];
+        apps.push({
+            name: document.getElementById("teachName").value,
+            email: document.getElementById("teachEmail").value,
+            phone: document.getElementById("teachPhone").value,
+            subject: document.getElementById("teachSubject").value,
+            qualification: document.getElementById("teachQual").value,
+            experience: document.getElementById("teachExp").value
+        });
+        localStorage.setItem("teacher_applications", JSON.stringify(apps));
+        loadApplicationsTable('teacher');
+    }
+    alert("Application Submitted Successfully to Admin Routing Buffer!");
+    document.getElementById("admissionForm").reset();
+    switchFormType(activeFormType);
+}
+
+function loadApplicationsTable(view) {
+    const head = document.getElementById("tableHead");
+    const body = document.getElementById("tableBody");
+    body.innerHTML = "";
+
+    document.getElementById("viewStudBtn").classList.toggle("active", view === 'student');
+    document.getElementById("viewTeachBtn").classList.toggle("active", view === 'teacher');
+
+    if(view === 'student') {
+        head.innerHTML = `<tr><th>Student Candidate</th><th>Parent</th><th>Class</th><th>Stream Profile</th></tr>`;
+        let apps = JSON.parse(localStorage.getItem("student_applications")) || [];
+        if(apps.length === 0) {
+            body.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8;">No student application arrays stored.</td></tr>`;
+            return;
+        }
+        apps.forEach(app => {
+            body.innerHTML += `<tr><td><strong>${app.student}</strong><br><small>${app.phone}</small></td><td>${app.parent}</td><td>${app.className}</td><td>${app.stream}</td></tr>`;
+        });
+    } else {
+        head.innerHTML = `<tr><th>Teacher Candidate</th><th>Specialization</th><th>Qualification</th><th>Exp</th></tr>`;
+        let apps = JSON.parse(localStorage.getItem("teacher_applications")) || [];
+        if(apps.length === 0) {
+            body.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#94a3b8;">No teacher candidate logs stored.</td></tr>`;
+            return;
+        }
+        apps.forEach(app => {
+            body.innerHTML += `<tr><td><strong>${app.name}</strong><br><small>${app.phone}</small></td><td>${app.subject}</td><td>${app.qualification}</td><td>${app.experience} Yrs</td></tr>`;
+        });
+    }
+}
+
+// Initial setup code sequence
+switchFormType("student");
+loadApplicationsTable("student");
+</script>
+</body>
+</html>

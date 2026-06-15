@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Articles Dashboard | Namungoona High School</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f8fafc;
+color:#1e293b;
+}
+
+/* Navigation */
+nav{
+background: linear-gradient(90deg, #0f172a, #2563eb, #10b981);
+padding:20px;
+display:flex;
+justify-content:center;
+gap:35px;
+flex-wrap:wrap;
+position:sticky;
+top:0;
+z-index:1000;
+box-shadow:0 4px 20px rgba(15, 23, 42, 0.15);
+backdrop-filter: blur(5px);
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-weight:600;
+font-size: 15px;
+letter-spacing: 0.5px;
+transition:.3s ease;
+position: relative;
+padding-bottom: 4px;
+}
+
+nav a::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: 0;
+left: 0;
+background-color: #fde047;
+transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+width: 100%;
+}
+
+nav a:hover{
+color:#fde047;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(37, 99, 235, 0.8)), url("https://images.unsplash.com/photo-1509062522246-3755977927d7");
+background-size: cover;
+background-position: center;
+padding: 60px 20px;
+text-align: center;
+color: white;
+}
+
+.dashboard-header h1 {
+font-size: 2.8rem;
+font-weight: 700;
+letter-spacing: 1px;
+}
+
+.dashboard-header p {
+font-size: 1.1rem;
+color: #fde047;
+margin-top: 10px;
+letter-spacing: 1px;
+}
+
+/* Container */
+.container{
+width:90%;
+max-width:1200px;
+margin:auto;
+padding:40px 0;
+}
+
+/* Grid Dashboard Layout */
+.articles-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+gap: 30px;
+}
+
+/* Article Cards */
+.article-card {
+background: white;
+border-radius: 20px;
+overflow: hidden;
+box-shadow: 0 10px 25px rgba(0,0,0,.04);
+border: 1px solid #e2e8f0;
+transition: .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+display: flex;
+flex-direction: column;
+}
+
+.article-card:hover {
+transform: translateY(-8px);
+box-shadow: 0 20px 40px rgba(15, 23, 42, 0.12);
+border-color: #2563eb;
+}
+
+.article-img-wrapper {
+position: relative;
+height: 200px;
+overflow: hidden;
+}
+
+.article-card img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+transition: transform 0.5s ease;
+}
+
+.article-card:hover img {
+transform: scale(1.05);
+}
+
+.category-badge {
+position: absolute;
+top: 15px;
+left: 15px;
+background: #10b981;
+color: white;
+padding: 4px 12px;
+border-radius: 50px;
+font-size: 11px;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.category-badge.environment {
+background: #2563eb;
+}
+
+.category-badge.history {
+background: #0f172a;
+}
+
+.article-content {
+padding: 25px;
+display: flex;
+flex-direction: column;
+flex-grow: 1;
+}
+
+.article-meta {
+font-size: 12px;
+color: #64748b;
+margin-bottom: 10px;
+display: flex;
+justify-content: space-between;
+}
+
+.article-content h3 {
+color: #0f172a;
+font-size: 1.25rem;
+margin-bottom: 12px;
+line-height: 1.4;
+font-weight: 600;
+}
+
+.article-content p {
+color: #475569;
+font-size: 14px;
+line-height: 1.6;
+margin-bottom: 20px;
+flex-grow: 1;
+}
+
+.read-more-btn {
+align-self: flex-start;
+color: #2563eb;
+text-decoration: none;
+font-weight: 600;
+font-size: 14px;
+display: flex;
+align-items: center;
+gap: 5px;
+transition: 0.2s ease;
+}
+
+.read-more-btn:hover {
+color: #10b981;
+}
+
+/* Footer */
+footer{
+background:linear-gradient(135deg, #0f172a, #1e3a8a, #064e3b);
+color:white;
+padding:60px 20px;
+margin-top:80px;
+text-align:center;
+}
+
+footer h2{
+margin-bottom:20px;
+color:#fde047;
+font-size: 2rem;
+letter-spacing: 1px;
+}
+
+footer p{
+line-height:2;
+font-size:16px;
+opacity: 0.9;
+}
+
+.footer-bottom{
+margin-top:35px;
+padding-top:25px;
+border-top:1px solid rgba(255,255,255,.15);
+}
+
+/* Responsive */
+@media(max-width:768px){
+.dashboard-header h1 {
+font-size: 2.1rem;
+}
+nav{
+gap: 20px;
+padding: 15px;
+}
+.articles-grid {
+grid-template-columns: 1fr;
+}
+}
+</style>
+</head>
+<body>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="admissions.html">Admissions</a>
+<a href="portals.html">Portals</a>
+<a href="constitution.html">Constitution</a>
+<a href="articles.html" style="color:#fde047;">Articles</a>
+<a href="events.html">Events</a>
+<a href="contact.html">Contact</a>
+</nav>
+
+<div class="dashboard-header">
+<h1>Articles & Insights</h1>
+<p>Explore stories from Namungoona High School and our surrounding community</p>
+</div>
+
+<div class="container">
+<div class="articles-grid">
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge">Academics</span>
+<img src="https://images.unsplash.com/photo-1509062522246-3755977927d7" alt="Classroom learning">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>June 2026</span> <span>4 min read</span></div>
+<h3>The Digital Revolution in Our Classrooms</h3>
+<p>How Namungoona High School is integrating modern technology and smart learning models into daily lessons to improve comprehension.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge environment">Environment</span>
+<img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" alt="Green landscape">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>June 2026</span> <span>5 min read</span></div>
+<h3>Hoima Road Development & Eco-Impact</h3>
+<p>An analysis of the rapid urban growth 5 miles along Hoima Road and how our campus safeguards green, serene learning ecosystems.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge history">History</span>
+<img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da" alt="Library">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>May 2026</span> <span>6 min read</span></div>
+<h3>Decades of Excellence: Our Legacy</h3>
+<p>Tracing the evolution of Namungoona High School from its early foundations to becoming a pillar of quality education in Kampala.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge">Student Life</span>
+<img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1" alt="Students">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>May 2026</span> <span>3 min read</span></div>
+<h3>Nurturing Leadership Beyond the Desk</h3>
+<p>A look into the Student Council activities and how our school breeds transparent, highly ethical leaders for tomorrow's Uganda.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge environment">Community</span>
+<img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846" alt="Community gathering">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>April 2026</span> <span>4 min read</span></div>
+<h3>The Nakibinge Stage Neighborhood Ties</h3>
+<p>Exploring our vibrant local community interactions and how our outreach programs uplift the immediate neighborhood outside our gates.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge">Science</span>
+<img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d" alt="Lab session">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>April 2026</span> <span>5 min read</span></div>
+<h3>Innovations in the Science Laboratory</h3>
+<p>Highlighting the innovative physics and chemistry practical projects being run by our brilliant advanced level student teams.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge environment">Environment</span>
+<img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09" alt="Recycling">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>March 2026</span> <span>3 min read</span></div>
+<h3>Go Green Campaign: Our Waste Management</h3>
+<p>Detailing the student-led recycling projects and tree-planting strategies keeping our school compound pristine and ecological.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge">Sports</span>
+<img src="https://images.unsplash.com/photo-1517649763962-0c623066013b" alt="Sports field">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>March 2026</span> <span>4 min read</span></div>
+<h3>Chasing regional Glory on the Field</h3>
+<p>An overview of the school team's rigorous training regimen as they ready themselves for the Kampala District Football tournaments.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge environment">Health</span>
+<img src="https://images.unsplash.com/photo-1535914254981-b5012eebbd15" alt="Clean water">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>February 2026</span> <span>3 min read</span></div>
+<h3>The Safe Water and Health Standards</h3>
+<p>A look into our strict water purification plants and internal health systems that guarantee safety and comfort for all residents.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge">Culture</span>
+<img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4" alt="Music instruments">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>February 2026</span> <span>5 min read</span></div>
+<h3>Melodies of Pride: Living the Anthem</h3>
+<p>What the lines of our school anthem mean to students on a deeper scale as they strive daily to elevate the standard of the school.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge history">Staff</span>
+<img src="https://images.unsplash.com/photo-1577896851231-70ef18881754" alt="Teacher">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>January 2026</span> <span>4 min read</span></div>
+<h3>Behind the Scenes with Our Teachers</h3>
+<p>Interviewing the experienced and well-trained professional staff who dedicate late hours to prepare our candidates for excellence.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge environment">Community</span>
+<img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8" alt="Local shops">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>January 2026</span> <span>5 min read</span></div>
+<h3>Economic Growth Trends in Namungoona</h3>
+<p>An informative feature on how local businesses, shops, and safe real estate layouts have flourished around our campus periphery.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge">Academics</span>
+<img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8" alt="Studying books">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>December 2025</span> <span>4 min read</span></div>
+<h3>Mastering the Art of Effective Revision</h3>
+<p>Tips from our top-performing alumni on how to approach high-pressure papers while maintaining high integrity and calm states.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge environment">Infrastructure</span>
+<img src="https://images.unsplash.com/photo-1562774053-701939374585" alt="School gate block">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>November 2025</span> <span>3 min read</span></div>
+<h3>Powering Excellence: Standby Infrastructure</h3>
+<p>How our proactive modern utility networks (like heavy standby generators) ensure that studying never pauses during local power outages.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+<div class="article-card">
+<div class="article-img-wrapper">
+<span class="category-badge">Art</span>
+<img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b" alt="Art palette">
+</div>
+<div class="article-content">
+<div class="article-meta"><span>November 2025</span> <span>4 min read</span></div>
+<h3>Creative Expressions in Fine Art</h3>
+<p>Celebrating the paintings, clay structures, and unique designs created by Namungoona students highlighting critical societal values.</p>
+<a href="#" class="read-more-btn">Read Article →</a>
+</div>
+</div>
+
+</div>
+</div>
+
+<footer>
+<h2>Namungoona High School</h2>
+<p>
+P.O. Box 26935, Kampala, Uganda<br>
+Tel: 0788772660 / 0700627960<br>
+Location: 5 Miles Along Hoima Road, 100 Metres Off Nakibinge Stage
+</p>
+<br>
+<p>
+The school staff consists of qualified, experienced and well-trained professionals.
+We provide safe drinking water, a standby generator, a conducive learning environment,
+and train citizens of social value for the future.
+</p>
+<div class="footer-bottom">
+<p>
+STRIVE TO EXCEL<br>
+© 2026 Namungoona High School. All Rights Reserved.
+</p>
+</div>
+</footer>
+
+</body>
+</html>
